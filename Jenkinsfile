@@ -51,8 +51,11 @@ pipeline {
         stage('Docker Push') {
             steps {
                 echo '=== Pushing to Docker Hub ==='
-                sh 'docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKERHUB_REPO}:${DOCKER_TAG}'
-                sh 'docker push ${DOCKERHUB_REPO}:${DOCKER_TAG}'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKERHUB_REPO}:${DOCKER_TAG}'
+                    sh 'docker push ${DOCKERHUB_REPO}:${DOCKER_TAG}'
+                }
             }
         }
 
@@ -71,7 +74,7 @@ pipeline {
             echo '✅ Pipeline completed successfully!'
         }
         failure {
-            echo '❌ Pipeline failed! Check logs above.'
+            echo '❌ Pipeline failed!'
         }
     }
 }

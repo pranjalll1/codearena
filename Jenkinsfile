@@ -5,11 +5,12 @@ pipeline {
         maven 'Maven3'
     }
 
-    environment {
-        DOCKER_IMAGE = 'codearena'
-        DOCKER_TAG = 'latest'
-        DOCKERHUB_REPO = 'pranjall1/codearena'
-    }
+ environment {
+     DOCKER_IMAGE = 'codearena'
+     DOCKER_TAG = 'latest'
+     DOCKERHUB_REPO = 'pranjalll1/codearena'
+     PATH = "/usr/local/bin:/opt/homebrew/bin:${env.PATH}"
+ }
 
     stages {
         stage('Checkout') {

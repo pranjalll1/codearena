@@ -55,7 +55,14 @@ pipeline {
                     credentialsId: 'dockerhub-credentials',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh '''
+                    if [ -z "$DOCKER_PASS" ]; then
+                      echo "Password is EMPTY"
+                    else
+                      echo "Password received"
+                    fi
+                    '''
+                   sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
                     sh 'docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKERHUB_REPO}:${DOCKER_TAG}'
                     sh 'docker push ${DOCKERHUB_REPO}:${DOCKER_TAG}'
                 }

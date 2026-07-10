@@ -8,7 +8,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'codearena'
         DOCKER_TAG = 'latest'
-        DOCKERHUB_REPO = 'pranjalll1/codearena'
+        DOCKERHUB_REPO = 'pranjall1/codearena'
     }
 
     stages {

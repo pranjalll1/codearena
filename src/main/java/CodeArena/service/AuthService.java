@@ -23,7 +23,7 @@ public class AuthService {
                 .role(User.Role.USER)
                 .build();
         userRepository.save(user);
-        return "User registered successfully";
+        return "User registered successfully-Demo";
     }
     public String login(LoginRequest request) {
         User user = userRepository.findByUsername(request.getUsername()).orElse(null);

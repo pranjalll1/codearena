@@ -32,3 +32,5 @@ public class AuthService {
         return "Login successful - Welcome " + user.getUsername();
     }
 }
+
+//ci/cd demo
